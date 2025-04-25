@@ -19,5 +19,8 @@ jobs:
       - name: Install dependencies
         run: npm install # Instala as dependências do projeto
 
+        - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
       - name: Run the bot
         run: node index.js # Roda o script do bot
