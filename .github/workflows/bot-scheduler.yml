@@ -20,4 +20,4 @@ jobs:
         run: npm install # Instala as dependências do projeto
 
       - name: Run the bot
-        run: node bot.js # Roda o script do bot
+        run: node index.js # Roda o script do bot
