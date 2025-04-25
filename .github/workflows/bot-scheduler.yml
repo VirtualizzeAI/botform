@@ -1,0 +1,23 @@
+name: Bot Scheduler
+
+on:
+  workflow_dispatch: # Permite disparar o workflow manualmente via API
+
+jobs:
+  runBot:
+    runs-on: ubuntu-latest # Define o ambiente onde o trabalho vai rodar (neste caso, a versão mais recente do Ubuntu)
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2 # Faz o checkout do código no repositório para que os arquivos fiquem disponíveis
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2 # Define a versão do Node.js a ser utilizada
+        with:
+          node-version: '16' # Define a versão do Node.js, você pode escolher a que você usa
+
+      - name: Install dependencies
+        run: npm install # Instala as dependências do projeto
+
+      - name: Run the bot
+        run: node bot.js # Roda o script do bot
