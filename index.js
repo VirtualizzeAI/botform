@@ -19,7 +19,7 @@ const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
     console.log("[1] Clicando em Avançar'")
     await page.getByText('Avançar').click()
 
-    const nota = Math.floor(Math.random() * 4) + 9
+    const nota = Math.floor(Math.random() * 2) + 9
     console.log(`[2] Nota selecionada: ${nota}`)
     await page.getByText(String(nota)).click()
     await page.getByText('Avançar').click()
