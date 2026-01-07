@@ -1,29 +1,10 @@
 {
-  "name": "botform",
-  "version": "1.0.0",
-  "description": "Aplicação web para executar scripts Playwright com autenticação Supabase",
   "buildCommand": "npm run build",
-  "devCommand": "npm run dev",
   "installCommand": "npm install",
-  "outputDirectory": ".",
   "framework": "express",
-  "regions": ["sfo1"],
-  "env": [
-    {
-      "key": "SUPABASE_URL",
-      "description": "URL do seu projeto Supabase"
-    },
-    {
-      "key": "SUPABASE_ANON_KEY",
-      "description": "Chave anônima do Supabase"
-    },
-    {
-      "key": "NODE_ENV",
-      "value": "production"
-    },
-    {
-      "key": "PORT",
-      "value": "3000"
-    }
-  ]
+  "env": {
+    "SUPABASE_URL": "@supabase_url",
+    "SUPABASE_ANON_KEY": "@supabase_anon_key",
+    "NODE_ENV": "production"
+  }
 }
