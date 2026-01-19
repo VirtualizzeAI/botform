@@ -1,14 +1,24 @@
-# BotForm - Aplicação Web
+# BotForm - Plataforma Moderna de Automação
 
-Aplicação elegante para executar scripts Playwright múltiplas vezes com autenticação segura via Supabase.
+Uma aplicação web moderna, responsiva e bonita construída com React, Next.js e Tailwind CSS para executar scripts Playwright com autenticação segura via Supabase.
+
+## ✨ Recursos
+
+- 🎨 **Design Moderno e Responsivo** - Interface elegante que funciona perfeitamente em todos os dispositivos
+- 🔐 **Autenticação Segura** - Integração completa com Supabase Auth
+- ⚡ **Performance** - Built com Next.js 14 para máxima performance
+- 📱 **Mobile First** - Totalmente responsivo e otimizado para mobile
+- 🎯 **Dashboard Intuitivo** - Gerenciamento fácil de scripts e execuções
+- 📊 **Análise em Tempo Real** - Monitore suas automações
+- 🛠️ **Gerenciador de Scripts** - Crie, edite e execute scripts facilmente
 
 ## 📋 Pré-requisitos
 
-- Node.js >= 16.0.0
-- npm ou yarn
+- Node.js >= 18.0.0
+- npm >= 9.0.0
 - Conta Supabase ativa
 
-## 🚀 Instalação
+## 🚀 Quick Start
 
 ### 1. Clone o repositório
 
@@ -26,27 +36,136 @@ npm install
 ### 3. Configure as variáveis de ambiente
 
 ```bash
-cp .env.example .env
+cp .env.example .env.local
 ```
 
-Edite o arquivo `.env` com suas credenciais do Supabase:
+Edite o arquivo `.env.local` com suas credenciais do Supabase:
 
 ```env
-SUPABASE_URL=https://seu-projeto.supabase.co
-SUPABASE_ANON_KEY=sua_chave_anonima_aqui
-NODE_ENV=development
-PORT=3000
+NEXT_PUBLIC_SUPABASE_URL=https://seu-projeto.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sua_chave_anonima_aqui
 ```
 
-## 🛠️ Desenvolvimento
-
-### Executar o servidor localmente
+### 4. Execute em desenvolvimento
 
 ```bash
-npm run server
+npm run dev
 ```
 
-O servidor estará disponível em `http://localhost:3000`
+Acesse `http://localhost:3000` em seu navegador
+
+## 📦 Build para Produção
+
+```bash
+npm run build
+npm start
+```
+
+## 🏗️ Estrutura do Projeto
+
+```
+src/
+├── app/
+│   ├── page.tsx              # Home/Redirect
+│   ├── layout.tsx            # Layout principal
+│   ├── globals.css           # Estilos globais
+│   ├── auth/
+│   │   ├── login/page.tsx   # Página de login
+│   │   ├── signup/page.tsx  # Página de cadastro
+│   │   └── callback/page.tsx # Callback do OAuth
+│   ├── dashboard/
+│   │   ├── page.tsx         # Dashboard principal
+│   │   └── layout.tsx       # Layout do dashboard
+│   └── scripts/
+│       └── page.tsx         # Gerenciador de scripts
+├── utils/
+│   └── supabase/
+│       └── client.ts        # Cliente Supabase
+└── types/
+    └── database.ts          # Tipos TypeScript
+```
+
+## 🎯 Fluxo de Autenticação
+
+1. Usuário acessa `/auth/login` ou cria conta em `/auth/signup`
+2. Supabase autentica o usuário via email/senha
+3. Após autenticação, redireciona para `/dashboard`
+4. Dashboard carrega dados do usuário autenticado
+5. Usuário pode gerenciar scripts em `/scripts`
+
+## 🗄️ Banco de Dados (Supabase)
+
+Você precisa criar as seguintes tabelas:
+
+### Tabela: scripts
+```sql
+CREATE TABLE scripts (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  created_at TIMESTAMP DEFAULT now(),
+  user_id UUID REFERENCES auth.users(id),
+  name VARCHAR NOT NULL,
+  description TEXT,
+  code TEXT NOT NULL,
+  status VARCHAR DEFAULT 'inactive',
+  last_run TIMESTAMP
+);
+```
+
+### Tabela: executions
+```sql
+CREATE TABLE executions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  created_at TIMESTAMP DEFAULT now(),
+  script_id UUID REFERENCES scripts(id),
+  status VARCHAR DEFAULT 'running',
+  result TEXT,
+  error TEXT
+);
+```
+
+## 🎨 Customização
+
+### Cores Primárias
+Edite `tailwind.config.js` para mudar as cores:
+
+```js
+colors: {
+  primary: {
+    600: '#4f46e5', // Mude para sua cor
+  }
+}
+```
+
+### Fontes
+Modifique `src/app/layout.tsx`:
+
+```tsx
+import { YourFont } from 'next/font/google'
+```
+
+## 🚀 Deploy
+
+### Vercel (Recomendado)
+
+```bash
+npm install -g vercel
+vercel
+```
+
+### Outras Plataformas
+A aplicação é compatível com qualquer plataforma que suporte Next.js:
+- Railway
+- Render
+- AWS Amplify
+- Digital Ocean
+
+## 📝 Licença
+
+MIT - Sinta-se livre para usar em seus projetos
+
+## 🤝 Suporte
+
+Para dúvidas ou problemas, abra uma issue no GitHub.
 
 ### Executar o script original (sem frontend)
 

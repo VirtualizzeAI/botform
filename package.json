@@ -1,27 +1,33 @@
 {
   "name": "botform",
-  "version": "1.0.0",
-  "description": "Aplicação web para executar scripts Playwright com autenticação Supabase",
-  "type": "module",
-  "main": "server.js",
+  "version": "2.0.0",
+  "description": "Plataforma moderna de automação com React, Next.js e Supabase",
+  "private": true,
   "scripts": {
-    "start": "node index.js",
-    "server": "node server.js",
-    "dev": "node server.js",
-    "build": "echo 'No build needed for this project'",
-    "deploy": "git push origin main"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "keywords": ["playwright", "supabase", "automation", "web-app"],
-  "author": "VirtualizzeAI",
-  "license": "MIT",
   "dependencies": {
-    "playwright": "^1.42.1",
-    "express": "^5.2.1",
-    "@supabase/supabase-js": "^2.90.0",
-    "dotenv": "^17.2.3"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "next": "^14.0.0",
+    "@supabase/supabase-js": "^2.38.4",
+    "tailwindcss": "^3.3.0",
+    "postcss": "^8.4.31",
+    "autoprefixer": "^10.4.16",
+    "lucide-react": "^0.292.0",
+    "clsx": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "typescript": "^5.3.2"
   },
   "engines": {
-    "node": ">=16.0.0",
-    "npm": ">=8.0.0"
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
   }
 }

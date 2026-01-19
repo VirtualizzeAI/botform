@@ -1,52 +1,120 @@
-# BotForm - Aplicação Web
+# Deploy do BotForm
 
-Aplicação elegante para executar scripts Playwright múltiplas vezes com autenticação segura via Supabase.
+Aqui estão os passos para fazer deploy da aplicação em produção.
 
-## 📋 Pré-requisitos
+## 🚀 Vercel (Recomendado)
 
-- Node.js >= 16.0.0
-- npm ou yarn
-- Conta Supabase ativa
-
-## 🚀 Instalação
-
-### 1. Clone o repositório
+### 1. Instale o Vercel CLI
 
 ```bash
-git clone https://github.com/VirtualizzeAI/botform.git
-cd botform
+npm install -g vercel
 ```
 
-### 2. Instale as dependências
+### 2. Faça deploy
 
 ```bash
-npm install
+vercel
 ```
 
 ### 3. Configure as variáveis de ambiente
 
-```bash
-cp .env.example .env
-```
+Na dashboard do Vercel:
+- Vá em Settings > Environment Variables
+- Adicione suas variáveis:
+  - `NEXT_PUBLIC_SUPABASE_URL`
+  - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 
-Edite o arquivo `.env` com suas credenciais do Supabase:
+## 🐳 Docker
 
-```env
-SUPABASE_URL=https://seu-projeto.supabase.co
-SUPABASE_ANON_KEY=sua_chave_anonima_aqui
-NODE_ENV=development
-PORT=3000
-```
-
-## 🛠️ Desenvolvimento
-
-### Executar o servidor localmente
+### 1. Build da imagem
 
 ```bash
-npm run server
+docker build -t botform:latest .
 ```
 
-O servidor estará disponível em `http://localhost:3000`
+### 2. Run do container
+
+```bash
+docker run -p 3000:3000 \
+  -e NEXT_PUBLIC_SUPABASE_URL=your_url \
+  -e NEXT_PUBLIC_SUPABASE_ANON_KEY=your_key \
+  botform:latest
+```
+
+### 3. Docker Compose
+
+```bash
+docker-compose up -d
+```
+
+## ☁️ Railway
+
+### 1. Conecte seu GitHub
+
+1. Acesse [Railway.app](https://railway.app)
+2. Clique em "New Project"
+3. Selecione "Deploy from GitHub"
+
+### 2. Configure variáveis de ambiente
+
+Na Railway, vá em Variables e adicione:
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+
+## 🌐 Render
+
+### 1. Crie um Web Service
+
+1. Vá em [render.com](https://render.com)
+2. Clique em "New +" > "Web Service"
+3. Conecte seu repositório
+
+### 2. Configure
+
+- **Build Command**: `npm run build`
+- **Start Command**: `npm start`
+- Adicione as variáveis de ambiente
+
+## 📊 Monitoramento
+
+### Vercel Analytics
+
+Habilitado automaticamente no Vercel. Acesse em Dashboard > Analytics
+
+### Logs
+
+```bash
+# Vercel
+vercel logs
+
+# Railway
+railway logs
+
+# Render
+render logs
+```
+
+## ⚠️ Checklist pré-deploy
+
+- [ ] Variáveis de ambiente configuradas
+- [ ] Banco de dados (Supabase) criado
+- [ ] RLS policies ativadas
+- [ ] CORS configurado no Supabase
+- [ ] Teste de login/signup funcionando
+- [ ] Build local sem erros: `npm run build`
+
+## 🔒 Variáveis de Ambiente
+
+Mude para PRODUÇÃO:
+- Verifique se `NEXT_PUBLIC_SUPABASE_URL` aponta para produção
+- Gere uma nova chave anon para produção no Supabase
+
+## 📞 Suporte
+
+Qualquer problema, check:
+1. Console do navegador (F12)
+2. Logs da plataforma de deploy
+3. Supabase Status: https://status.supabase.com
 
 ### Executar o script original (sem frontend)
 
